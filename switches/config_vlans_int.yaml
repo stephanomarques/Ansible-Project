@@ -1,0 +1,28 @@
+---
+
+- hosts: switch
+  gather_facts: no
+
+  tasks:
+#Tarefa para configurar:
+#switchport access mode interface g0/2 g0/3 com vlans 10 e 20..
+#interface g1/2 -> permitir vlans 10 ate 20 | vlan  nativo-20 | tag de frames-dot1q | vlans em pruning 10,20 
+  - name: Merge provided configuration with device configuration
+    ios_l2_interfaces:
+      config:
+        - name: GigabitEthernet0/2
+          access:
+            vlan: 10
+        - name: GigabitEthernet0/3
+          access:
+            vlan: 20
+        - name: GigabitEthernet1/2
+          trunk:
+            allowed_vlan: 10-20, 40
+            native_vlan: 20
+            pruning_vlan: 10,20
+            encapsulation: dot1q
+      state: replaced
+#podemos mudar o state para merged / replaced / overriden / deleted
+###############################################################
+

@@ -1,0 +1,14 @@
+---
+- name: Create EFS (Elastic File Server)
+  efs:
+      state: present
+      name: "{{ efs_name }}"
+      region: "{{ region }}"
+      tags:
+          name: myTestNameTag
+          purpose: file-storage
+      targets:
+          - subnet_id: "{{ subnet_id }}"
+            vpc_id: "{{ vpc_id }}"
+            security_groups: [ "{{ secgroup_id }}" ]
+            

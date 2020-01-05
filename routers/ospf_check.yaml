@@ -1,0 +1,52 @@
+---
+- hosts: routers
+  connection: local
+  gather_facts: true
+  
+  vars:
+    trapdests: []
+   
+  tasks:
+#Tarefa para ver configs em cada interface
+    - name: Check OSPF configurations on each ROUTER
+      ios_command:
+        commands: "show ip ospf int brief"
+      register: command_out
+    
+    - name: show ip ospf int brief
+      debug:
+        msg: "{{ command_out.stdout_lines }}"
+#################################################
+
+#Tarefa para ver ID processo
+    - name: Check OSPF Process-ID
+      ios_command:
+        commands: "show ip ospf | inc Routing Process"
+      register: command_out
+    
+    - name: show ip ospf | inc Routing Process
+      debug:
+        msg: "{{ command_out.stdout_lines }}"
+#################################################
+
+#Tarefa para ver vizinhos OSPF
+    - name: Check OSPF Neighbors
+      ios_command:
+        commands: "show ip ospf neighbor"
+      register: command_out
+    
+    - name: show ip ospf neighbor
+      debug:
+        msg: "{{ command_out.stdout_lines }}"
+################################################
+
+#Tarefa para ver base de dados de OSPF
+    - name: Check OSPF DataBase
+      ios_command:
+        commands: "show ip ospf database"
+      register: command_out
+
+    - name: show ip ospf database
+      debug:
+        msg: "{{ command_out.stdout_lines }}"
+################################################

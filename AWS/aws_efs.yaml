@@ -1,0 +1,7 @@
+---
+- name: Create EFS
+  hosts: localhost
+  connection: local
+
+  roles:
+    - aws-efs

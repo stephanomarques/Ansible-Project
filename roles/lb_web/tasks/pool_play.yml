@@ -1,0 +1,8 @@
+- name: Adjust a pool
+  bigip_pool:
+    name: "pool_Web"
+    monitors: "/Common/http"
+    monitor_type: "and_list"
+    slow_ramp_time: "120"
+    lb_method: "ratio-member"
+    state: "{{ state }}"

@@ -1,0 +1,18 @@
+---
+# update the CIDR address in the SSH port section.
+- name: Create Security Group
+  ec2_group:
+    name: Web DMZ
+    description: DMZ Security Group
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        ports:
+        - 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        ports:
+        - 22
+        cidr_ip: 0.0.0.0/0
+  register: security_group

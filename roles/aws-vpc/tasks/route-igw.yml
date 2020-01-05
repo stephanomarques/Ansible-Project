@@ -1,0 +1,12 @@
+---
+- name: Route IGW
+  ec2_vpc_route_table:
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    region: "{{ region }}"
+    subnets:
+      - "{{ my_subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ my_igw.gateway_id  }}"
+    tags:
+      Name: "Route to internet"

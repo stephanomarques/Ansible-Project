@@ -1,0 +1,14 @@
+---
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+        - name: bucket_name
+          prompt: "Insert the Bucket Name: "
+
+  tasks:
+  - name: Create an empty bucket
+    aws_s3:
+      bucket: "{{ bucket_name }}"
+      mode: create
+      permission: public-read

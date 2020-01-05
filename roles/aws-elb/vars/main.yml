@@ -1,0 +1,8 @@
+---
+region: eu-west-2
+ami: "ami-0fab23d0250b9a47e"  # Ubuntu 16.04 LTS
+app_code_user: "ubuntu" # remote user
+pem_key: "ansible_keypair"
+sec_group_name: "ansible_elb_sec_group" 
+sec_group_description: "security group demo elb playbook"
+instance_type: "t2.micro"

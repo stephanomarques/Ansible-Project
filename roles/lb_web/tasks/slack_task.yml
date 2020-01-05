@@ -1,0 +1,9 @@
+---
+
+- name: Slack notification
+  slack:
+    token: "T80UK2P8T/BS7TYCEKF/SSRXaEyfboEj5GM9bbqhxdfG"
+    username: "Ansible"
+    icon_url: "http://raw.githubusercontent.com/ArtiomL/f5-ansible/develop/img/ansired.png"
+    color: good
+    msg: ":thumbsup: {{ msg }} `state = {{ state }}`"

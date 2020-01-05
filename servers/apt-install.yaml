@@ -1,0 +1,7 @@
+---
+- hosts: servers
+  become: true
+  tasks:
+    - name: Upgrade all installed packages for Debian and Ubuntu
+      apt:
+        

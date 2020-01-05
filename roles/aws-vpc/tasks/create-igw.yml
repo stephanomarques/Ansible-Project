@@ -1,0 +1,9 @@
+---
+- name: create IGW
+  ec2_vpc_igw:
+   vpc_id: "{{ my_vpc.vpc.id }}"
+   region: "{{ region }}"
+   state: "present"
+   tags:
+     Name: "{{ igw_name }}"
+  register: my_igw

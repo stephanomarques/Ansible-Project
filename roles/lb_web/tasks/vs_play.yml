@@ -1,0 +1,15 @@
+---
+
+- name: Adjust a VS
+  bigip_virtual_server:
+    name: "{{ service_name }}"
+    destination: "{{ service_ip }}"
+    port: "443"
+    description: "Web App"
+    snat: "Automap"
+    all_profiles:
+      - "tcp-lan-optimized"
+      - "clientssl"
+      - "http"
+      - "analytics"
+    state: "{{ state }}"

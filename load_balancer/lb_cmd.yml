@@ -1,0 +1,11 @@
+---
+
+- name: "Check Virtual | Pool | Node List commands in F5 BIGIP"
+  hosts: loadbalancer
+  gather_facts: false
+  connection: local
+
+  environment: "{{ bigip_env }}"
+
+  roles:
+    - lb_cmd

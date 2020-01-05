@@ -1,0 +1,29 @@
+---
+
+- hosts: localhost
+  vars:
+    host: "192.168.2.254"
+    username: "admin"
+    password: "stephano97"
+    #password: "{{ lookup('password','passwd') }}"
+    vdom: "root"
+    ssl_verify: "False"
+  tasks:
+  - name: Configure VLAN_100
+    fortios_system_interface:
+      host: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom: "{{ vdom }}"
+      https: "True"
+      ssl_verify: "False"
+      system_interface:
+        state: "present"
+        vdom: "root"
+        interface: "internal"
+        type: "vlan"
+        vlanid: "100"
+        mode: "static"
+        ip: "10.1.1.1 255.255.255.0"
+        allowaccess: ['http','https', 'ping']
+        name: "VLAN_100"

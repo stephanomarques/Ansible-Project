@@ -1,0 +1,72 @@
+---
+- hosts: "{{ router_choice }}"
+  gather_facts: no
+  connection: local 
+#Prompt ao utilizador para escolher router
+  vars_prompt:
+
+    - name: router_choice
+      prompt: "Which router to add ACL? (all/main/r1/r2)"
+      private: no
+
+    - name: acl_name_choice
+      prompt: "Which name for the ACL? (all/main/r1/r2)"
+      private: no
+
+    - name: int_choice
+      prompt: "Which interface to apply ACL? (g0/0,f0/1,...)"
+      private: no
+#############################################
+
+#Inicio das tarefas
+  tasks:
+
+#1 Tarefa -> Mostrar Interfaces
+  - name: RUN SHOW INTERFACES 
+    ios_command:
+      commands:
+         - show ip interface brief
+    register: ipbrief
+  - debug: var=ipbrief.stdout_lines
+######################################
+
+#2 Tarefa -> Verificar ACL's
+  - name: CHECK ACLS
+    ios_command:
+      commands:
+         - show ip access-list
+    register: beforeacl
+  - debug: var=beforeacl.stdout_lines
+#####################################
+
+#3 Tarefa -> Criar ACL(s)
+  - name: CREATE MY_ACL
+    ios_config:
+      lines:
+        - 10 permit ip 10.10.13.0 0.0.0.255 any
+        - 20 permit ip 10.10.2.0 0.0.0.255 any
+        - 30 permit ip 10.10.21.0 0.0.0.255 any
+        - 40 deny ip any any log
+      parents: ['ip access-list extended {{acl_name_choice}}']
+      before: ['no ip access-list extended {{acl_name_choice}}']
+      match: exact
+###########################################################
+
+#4 Tarefa -> Verificar novamente as ACLs
+  - name: CHECK MY_ACLS
+    ios_command:
+      commands:
+         - show ip access-list "{{acl_name_choice}}"
+    register: afteracl
+  - debug: var=afteracl.stdout_lines
+#############################################################
+
+#5 Tarefa -> Adicionar a ACL a interface de escolha
+  - name: APPLY "{{acl_name_choice}}" to the interface
+    ios_config:
+      lines:
+        - ip access-group "{{acl_name_choice}}" in
+      parents: ['interface {{int_choice}}']
+#No parâmetro parents indicamos a que interface queremos mandar a acl
+
+##############################################################

@@ -1,0 +1,13 @@
+---
+- name: Create EC2 server
+  ec2:
+   image: ami-008d353a45d44ddda
+   wait: yes
+   instance_type: t2.micro
+   region: "{{ region }}"
+   group_id: "{{ security_group.group_id }}"
+   vpc_subnet_id: "{{ my_subnet.subnet.id }}"
+   key_name: "ansible_keypair"
+   count_tag:
+     Name: moodle_server
+   exact_count: 1

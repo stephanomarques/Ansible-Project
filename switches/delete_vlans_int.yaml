@@ -1,0 +1,22 @@
+---
+
+- hosts: switch
+  gather_facts: no
+
+  tasks:
+#Tarefa para apagar vlan configs de interface
+  - name: Delete IOS L2 interfaces as in given arguments
+    ios_l2_interfaces:
+      config:
+        - name: "{{item}}"
+      state: deleted
+    with_items:
+      - GigabitEthernet0/2
+      - GigabitEthernet0/3
+      - GigabitEthernet1/0
+      - GigabitEthernet1/1
+      - GigabitEthernet1/2
+      - GigabitEthernet1/3
+################################################################333
+
+  

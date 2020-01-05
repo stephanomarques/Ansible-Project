@@ -1,0 +1,21 @@
+# EFS Name
+efs_name: "EFSTest"
+
+# VPC
+vpc_name: "Ansible VPC"
+vpc_id: "vpc-0bd880c6ad37d0761"
+
+# Subnet
+subnet_name: "Ansible Subnet"
+subnet_id: "subnet-0aea951b51f7960fb"
+
+# Security group id
+secgroup_id: "sg-0bae61968e0525766"
+securitygroup_name: "Ansible Security Group"
+ec2_tag: "WebServer"
+
+#The local path to which we would save our EC2 Private Key
+keypair_name: "ec2_key_pair"
+
+#Select region
+region: eu-west-2

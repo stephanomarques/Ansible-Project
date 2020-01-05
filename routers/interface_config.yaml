@@ -1,0 +1,10 @@
+---
+#Basic Interface Configuration for Routers OSPF
+- hosts: routers
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Pushing Interface j2 Template
+      ios_config:
+        src: ../templates/interface_template.j2

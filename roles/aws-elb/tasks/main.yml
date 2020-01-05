@@ -1,0 +1,4 @@
+---
+# tasks file for ELB
+- include: sec_group.yml
+- include: ec2_create.yml

@@ -1,0 +1,29 @@
+---
+- hosts: "{{ router_choice }}"
+  gather_facts: no
+  connection: local
+#Prompt ao utilizador para escolher router
+  vars_prompt:
+
+    - name: router_choice
+      prompt: "Which router to delete ACL? (all/main/r1/r2)"
+      private: no
+
+    - name: acl_name_choice
+      prompt: "Which name for the ACL to delete?"
+      private: no
+###################################################
+
+  tasks:
+
+#2 Tarefa -> Apagar ACL
+  - name: DELTE MY ACL
+    ios_config:
+      lines:
+         - no ip access-list extended "{{acl_name_choice}}"
+      parents: ['no ip access-list extended {{acl_name_choice}}']
+      before: ['ip access-list extended {{acl_name_choice}}']
+      match: exact
+
+#####################################################
+

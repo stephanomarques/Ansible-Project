@@ -1,0 +1,13 @@
+---
+
+- name: Update a VS
+  bigip_virtual_server:
+    name: "{{ service_name }}"
+    pool: "pool_Web"
+    state: "{{ state }}"
+  when: state == "present"
+
+- import_tasks: slack_task.yml
+  vars:
+    msg: "Web app"
+

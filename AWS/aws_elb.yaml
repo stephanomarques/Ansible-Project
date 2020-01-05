@@ -1,0 +1,8 @@
+---
+- name: Create VPC / Subnet / Router / IGW / Sec Group / EC2 Instance
+  hosts: localhost
+  connection: local
+
+  roles:
+    - aws-elb
+

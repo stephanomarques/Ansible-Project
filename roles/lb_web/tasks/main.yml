@@ -1,0 +1,6 @@
+---
+
+  - include: vs_play.yml
+  - include: pool_play.yml
+  - include: node_play.yml
+  - include: vs_slack_play.yml

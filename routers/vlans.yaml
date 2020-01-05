@@ -1,0 +1,48 @@
+---
+
+- hosts: "{{target}}"
+#becomes yes = uses root 
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+    - name: target
+      prompt: "Please specify the target (main,r1,r2,..)"
+      private: no
+
+    - name: user_vlans
+      prompt: "Please specify the VLANS, separated by commas(,)"
+      private: no
+
+    - name: user_interface
+      prompt: "Which interface to assign your vlan?"
+      private: no
+
+  tasks:
+#Separação da lista inserida pelo utilizador
+  - set_fact:
+      vlans: "{{ user_vlans.split(',') }}"
+################################################
+
+#Tarefa - Definir vlans nas sub-interfaces do router
+  - name: Setting VLAN ON INTERFACE
+    ios_config:
+      lines:
+        - interface {{user_interface}}.{{item}}
+        - encapsulation dot1q {{item}}
+        - ip address 192.168.{{item}}.253 255.255.255.0
+        - no shut
+    loop: "{{vlans}}"
+################################################################333
+
+
+#Mostrar as configs das interfaces
+  - name: Check my VLANS
+    ios_command:
+      commands:
+         - show ip interface brief
+         - show running-config
+    register: configs
+  - debug: var=configs.stdout_lines
+#############################################################
+

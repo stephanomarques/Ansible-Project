@@ -1,0 +1,32 @@
+---
+- hosts: "{{ router_choice }}"
+  connection: local
+  gather_facts: false
+
+#Prompt ao utilizador para escolher router
+  vars_prompt:
+
+    - name: router_choice
+      prompt: "Which router to check? (all/main/r1/r2)"
+      private: no
+#############################################
+
+  tasks:
+#Tarefa de verificar ACLs
+    - name: CHECK ACLS
+      ios_command:
+        commands:
+           - show ip access-list
+      register: acl_list
+
+    - debug: var=acl_list.stdout_lines
+################################################
+
+#Tarefa de verificar em que interface estao ACLS 
+    - name: INTERFACES AND ACLS
+      ios_command:
+        commands:
+          - show ip interface | include line protocol|access list
+      register: acl_list_int
+    - debug: var=acl_list_int.stdout_lines
+##############################################

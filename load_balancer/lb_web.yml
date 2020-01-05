@@ -1,0 +1,16 @@
+---
+- name: Create VPC / Subnet / Router / IGW / Sec Group / EC2 Instance
+  hosts: loadbalancer
+  connection: local
+
+  vars:
+    state: "present"
+    service_name: "vs_Web"
+    service_ip: "192.168.234.10"
+
+  environment: "{{ bigip_env }}"
+
+
+  roles:
+    - lb_web
+

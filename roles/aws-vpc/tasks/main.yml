@@ -1,0 +1,8 @@
+---
+# tasks file for aws-vpc
+- include: create-vpc.yml
+- include: create-subnet.yml
+- include: create-igw.yml
+- include: route-igw.yml
+- include: create-secgroup.yml
+- include: create-ec2keyandinstance.yml

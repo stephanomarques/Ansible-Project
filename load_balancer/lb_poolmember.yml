@@ -1,0 +1,15 @@
+---
+
+- name: "Force Pool Member Disabled/Enabled"
+  hosts: loadbalancer
+  gather_facts: false
+  connection: local
+
+  vars:
+    state: "enabled"
+    pool: "pool_Web"
+    node_name: "node_Srv2"
+    node_ip: "192.168.234.2"
+    node_port: 80
+
+  environment: "{{ bigip_env }}"

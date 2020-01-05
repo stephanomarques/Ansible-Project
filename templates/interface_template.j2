@@ -1,0 +1,26 @@
+hostname {{ ROUTERNAME }}
+!
+interface {{ LOOPBACK_0 }}
+ description ROUTER-ID
+ ip address {{ LOOPBACK_0_IP }} 255.255.255.255
+ ip ospf 1 area {{ LOOPBACK_AREA }}
+!
+!
+interface {{ INTERFACE_1 }}
+ description Link to {{ INTERFACE_1_PEER }}
+ ip address {{ INTERFACE_1_IP }} {{ INTERFACE_1_MASK }}
+ ip ospf 1 area {{ INTERFACE_1_AREA }}
+ ip ospf network point-to-point
+ no shut
+!
+interface {{ INTERFACE_2 }}
+ description Link to {{INTERFACE_2_PEER}}
+ ip address {{ INTERFACE_2_IP }} {{ INTERFACE_2_MASK }}
+ ip ospf 1 area {{ INTERFACE_2_AREA }}
+ ip ospf network point-to-point
+ no shut
+!
+router ospf 1
+ mpls ldp autoconfig
+ network {{ OSPF_NET1 }} {{ OSPF_NET1_MASK }} area {{ INTERFACE_1_AREA }}
+ network {{ OSPF_NET2 }} {{ OSPF_NET2_MASK }} area {{ INTERFACE_2_AREA }}

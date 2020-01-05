@@ -1,0 +1,25 @@
+- name: Adjust first node
+  bigip_node:
+    name: "node_Srv1"
+    host: "{{ groups['webservers'][0] }}"
+    state: "{{ state }}"
+
+- name: Adjust second node
+  bigip_node:
+    name: "node_Srv2"
+    host: "{{ groups['webservers'][1] }}"
+    state: "{{ state }}"
+
+- name: Add nodes to pool
+  bigip_pool_member:
+    name: "{{ item.name }}"
+    host: "{{ item.host }}"
+    port: "80"
+    pool: "pool_Web"
+    state: "{{ state }}"
+  with_items:
+    - name: "node_Srv1"
+      host: "{{ groups['webservers'][0] }}"
+    - name: "node_Srv2"
+      host: "{{ groups['webservers'][1] }}"
+  when: state == "present"
