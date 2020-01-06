@@ -8,4 +8,4 @@
   environment: "{{ bigip_env }}"
 
   roles:
-    - lb_cmd
+    - ../roles/lb_cmd
