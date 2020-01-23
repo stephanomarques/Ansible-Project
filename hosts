@@ -16,3 +16,7 @@ loadbalancer
 [webservers]
 192.168.234.1
 192.168.234.2
+
+[novo_grupo]
+192.168.3.6
+192.168.3.7
