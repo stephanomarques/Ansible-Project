@@ -4,7 +4,7 @@
   vars:
     host: "192.168.2.254"
     username: "admin"
-    password: "stephano97"
+    password: ""
     #password: "{{ lookup('password','passwd') }}"
     vdom: "root"
     ssl_verify: "False"
